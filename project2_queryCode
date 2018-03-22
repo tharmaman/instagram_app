@@ -1,0 +1,61 @@
+-- Display all the posts (SELECT filepath) taken at Bronfman Building by users
+
+SELECT u.userName, cm.postID ,mf.filepath FROM mediaFiles mf, containsMedia cm, posts p, users u WHERE mf.fileID = cm.mediaID AND cm.postID = p.postID AND p.posterID = u.userID AND mf.fileID IN (
+    SELECT cm.mediaID FROM containsMedia cm WHERE cm.postID IN
+    (
+      SELECT p.postID FROM posts p, locations l WHERE p.locationID = l.locationID AND l.locationName = "Bronfman Building"
+    )
+);
+
+-- Select all messages that were in a direct conversation between ONLY darth_vader and voldemort (between ONLY user 1 and 2), show if they sent a post or story along with the message
+
+SELECT u.userName, m.content, m.storyID, m.postID, m.timeSent FROM users u, messages m, conversations c WHERE u.userID = m.senderID AND m.convID = c.convID AND c.convID IN (SELECT convID from conversations where user1 IN (
+    SELECT userID FROM users WHERE userName = "darth_vader" OR userName = "voldemort"
+  )
+  AND user2 IN (
+    SELECT userID FROM users WHERE userName = "darth_vader" OR userName = "voldemort"
+  )
+  AND user3 IS NULL
+  AND user4 IS NULL
+);
+
+-- Count the number of videos on Instagram
+
+SELECT COUNT(fileID) AS numVideoFiles FROM mediaFiles WHERE filePath LIKE "%.mov" OR filePath LIKE "%.mp4";
+
+-- Display the transcript of the most active group conversation (again identify if a post or story was sent with the message or not)
+
+SELECT u.userName, m.content, m.storyID, m.postID, m.timeSent FROM users u, messages m, conversations c WHERE u.userID = m.senderID AND m.convID = c.convID AND c.convID =
+  (
+    SELECT convID FROM
+    (
+      SELECT convID, activity FROM
+
+      (
+        SELECT convID, (COUNT(*)) as activity FROM messages GROUP BY convID
+
+      ) AS maxCount
+
+      GROUP BY convID
+
+      HAVING activity =
+
+          (
+            SELECT MAX(activity) FROM
+            (
+              SELECT convID, (COUNT(*)) as activity FROM messages GROUP BY convID
+
+            ) AS maxCount2
+          )
+
+    ) AS finalMax
+  )
+
+ORDER BY m.timeSent ASC;
+
+-- Select the userNames of inactive users AKA no likes
+
+SELECT userName FROM
+  (
+    SELECT u.userName, u.userID, COUNT(lp.userID) as numberLikes FROM users u LEFT JOIN likesPost lp ON u.userID = lp.userID GROUP BY userID HAVING numberLikes = 0
+  ) as inactiveUsernames;
