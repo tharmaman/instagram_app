@@ -57,15 +57,15 @@ PRIMARY KEY (fileID)
 
 INSERT INTO mediaFiles (filepath)
     VALUES
-    ('~/instagram/media/vids/323456.mp4'),
-    ('~/instagram/media/vids/123416.mov'),
-    ('~/instagram/media/pics/223426.jpg'),
-    ('~/instagram/media/pics/333453.png'),
-    ('~/instagram/media/pics/344456.mp4'),
-    ('~/instagram/media/pics/987643.mp4'),
-    ('~/instagram/media/pics/100001.png'),
-    ('~/instagram/media/pics/696969.jpg'),
-    ('~/instagram/media/pics/968574.mp4');
+    ('instagram/media/vids/323456.mp4'),
+    ('instagram/media/vids/123416.mov'),
+    ('instagram/media/pics/223426.jpg'),
+    ('instagram/media/pics/333453.png'),
+    ('instagram/media/vids/344456.mp4'),
+    ('instagram/media/vids/987643.mp4'),
+    ('instagram/media/pics/100001.png'),
+    ('instagram/media/pics/696969.jpg'),
+    ('instagram/media/vids/968574.mp4');
 
 
 -- --------------- PROFILES ------------------- --
@@ -134,6 +134,7 @@ INSERT INTO posts (posterID, timePosted, locationID, campaignID)
       (4, '2018-01-01 07:34:12', 3, NULL),
       (5, '2018-02-15 15:46:22', 1, NULL );
 
+
 -- --------------- ADD ONS ------------------- --
 
 CREATE TABLE addOns (
@@ -149,11 +150,11 @@ PRIMARY KEY (addonID)
 
 INSERT INTO addOns (addonName, addOnsFilePath, latAvailable, longAvailable, startDate, endDate)
  VALUES
-    ("Lit Filter", "~/instagram/media/filter/323456.png", 145.502610, -73.576435, '2018-01-15 12:11:33', '2018-02-08 15:34:55'),
-    ("Taco Bell", "~/instagram/media/filter/123456.png", NULL, NULL, '2017-09-15 12:11:33', '2018-06-08 15:34:55'),
-    ("Love", '~/instagram/media/filter/223426.png', 45.496067, -73.569315, '2017-09-15 12:11:33', '2017-12-08 15:34:55'),
-    ("McGill", '~/instagram/media/filter/434342.png', NULL, NULL, '2018-05-15 12:11:33', '2018-12-08 15:34:55'),
-    ("MTL", "~/instagram/media/filter/981234.png", NULL, NULL, '2017-09-15 12:11:33', '2018-06-08 15:34:55');
+    ("Lit Filter", "instagram/media/filter/323456.png", 145.502610, -73.576435, '2018-01-15 12:11:33', '2018-02-08 15:34:55'),
+    ("Taco Bell", "instagram/media/filter/123456.png", NULL, NULL, '2017-09-15 12:11:33', '2018-06-08 15:34:55'),
+    ("Love", 'instagram/media/filter/223426.png', 45.496067, -73.569315, '2017-09-15 12:11:33', '2017-12-08 15:34:55'),
+    ("McGill", 'instagram/media/filter/434342.png', NULL, NULL, '2018-05-15 12:11:33', '2018-12-08 15:34:55'),
+    ("MTL", "instagram/media/filter/981234.png", NULL, NULL, '2017-09-15 12:11:33', '2018-06-08 15:34:55');
 
 -- --------------- COMMENTS  ---------------------- --
 
@@ -259,6 +260,11 @@ INSERT INTO campaigns (name, company, timeStart, timeEnd, postID)
     ("BigThanks", "Amazon", '2018-05-15 12:11:33', '2018-12-08 15:34:55', NULL),
     ("Originals","Adidas", '2017-09-15 12:11:33', '2018-06-08 15:34:55', NULL);
 
+-- Adding campaignID foreign key constraint to posts TABLE
+
+ALTER TABLE posts
+ADD FOREIGN KEY (campaignID) REFERENCES campaigns(campaignID);
+
 -- --------------- TARGETS PROFILES ---------------- --
 
 CREATE TABLE targetsProfiles (
@@ -296,9 +302,11 @@ postID int NOT NULL,
 mediaID int NOT NULL,
 PRIMARY KEY (postID, mediaID),
 FOREIGN KEY (postID)
-REFERENCES posts(postID),
+REFERENCES posts(postID)
+ON DELETE CASCADE,
 FOREIGN KEY (mediaID)
 REFERENCES mediaFiles(fileID)
+ON DELETE CASCADE
 );
 
 INSERT INTO containsMedia (postID, mediaID)
@@ -315,7 +323,7 @@ INSERT INTO containsMedia (postID, mediaID)
 
  -- --------------- CONTAIN HASHTAGS  ---------------- --
 
-CREATE TABLE containHashtags(
+CREATE TABLE containsHashtag(
 postID int NOT NULL,
 hashtagName VARCHAR(60) NOT NULL,
 PRIMARY KEY(hashtagName, postID),
@@ -329,7 +337,7 @@ FOREIGN KEY(postID)
 
 -- You need a hashtag for a post to contain a hashtag and vice versa
 
-INSERT INTO containHashtags (postID, hashtagName)
+INSERT INTO containsHashtag (postID, hashtagName)
  VALUES
     (1, "#summer"),
     (1, "#basic"),
@@ -658,3 +666,4 @@ INSERT INTO messages (senderID, convID, content, postID, storyID, timeSent)
     (4, 6, "yo", NULL, NULL, '2018-03-17 18:07:33'),
     (4, 6, "buy my mixtape", NULL, NULL, '2018-03-20 18:07:33'),
     (1, 6, "naw", NULL, NULL, CURRENT_TIMESTAMP);
+
