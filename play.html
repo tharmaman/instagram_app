@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Instagram</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+    <style>
+        body {
+          font-family: "Raleway", Arial, sans-serif;
+        }
+        .feedBlock{
+          margin: auto;
+          width: 540px;
+          height: 540px;
+          border: 2px solid;
+          border-color: #e6e6e6;
+          background-color: white;
+        }
+        .feedUser {
+          padding: 15px;
+          font-size: large;
+          color: #262626;
+          font-weight: 900;
+          text-transform: lowercase;
+          float: left;
+        }
+        .feedTime {
+          padding: 15px;
+          color: #999999;
+          font-size: large;
+          font-weight: 400;
+          text-transform: lowercase;
+          float: right;
+        }
+        .feedPicture {
+          margin: auto;
+          width: 540px;
+          padding: 0px;
+
+        }
+
+        #feed {
+          padding-top: 150px;
+          padding-right: 80px;
+          padding-bottom: 50px;
+          padding-left: 80px;
+        }
+
+    </style>
+  </head>
+  <body bgcolor="#fafafa">
+    <!-- !PAGE CONTENT! -->
+    <div style = "max-width:1500px; padding:0px;">
+      <!-- Header -->
+      <header class = "w3-container w3-xlarge w3-white" style = "height: 65px; width: 100%; position: fixed; border-bottom: 2px solid; border-bottom-color: #e6e6e6; padding-top: 5px;">
+        <a href='index.php' class="w3-left w3-button w3-white">
+          <img src="instagram_logo.png" style="width:190px;height:36px;">
+        </a>
+        <a href="play.html" class="w3-right w3-button w3-white" style='font-size:24px; padding-right:30px;'>Play</a>
+    </div>
+
+    <div id="feed">
+      <ol>
+        <li>
+           <a href="queries/q1.php"> Display all the posts (SELECT filepath) taken at Bronfman Building by users </a>
+        </li>
+        <li>
+           <a href="queries/q2.php"> Select all messages that were in a direct conversation between ONLY darth_vader and voldemort (between ONLY user 1 and 2), show if they sent a post or story along with the message </a>
+        </li>
+        <li>
+           <a href="queries/q3.php"> Count the number of videos (identified by a .mov and .mp4 extension on filepath) on Instagram </a>
+        </li>
+        <li>
+           <a href="queries/q4.php"> Display the transcript of the most active group conversation (again identify if a post or story was sent with the message or not) </a>
+        </li>
+        <li>
+           <a href="queries/q5.php"> Select the userNames of inactive users AKA no likes </a>
+        </li>
+        <li>
+           <a href="queries/q6.php"> Select all posts with a certain hashtag (#summer)
+           -- -- Note: There are three results because the post is of type "Album" (has more than one mediaFile attached to it meaning that users can scroll through the media files) </a>
+        </li>
+        <li>
+           <a href="queries/q7.php"> Show all posts where two specific users are tagged in </a>
+        </li>
+        <li>
+           <a href="queries/q8.php"> Select all users tagged in a certain post  (based on post ID = 4) </a>
+        </li>
+        <li>
+           <a href="queries/q9.php"> Select all users with no hashtags </a>
+        </li>
+        <li>
+           <a href="queries/q10.php"> Select all sponsored posts </a>
+        </li>
+        <li>
+           <a href="queries/q11.php"> Select the companies with more than one campaign </a>
+        </li>
+        <li>
+           <a href="queries/q12.php"> Most active poll </a>
+        </li>
+        <li>
+           <a href="queries/q13.php"> Select all stories which are more than 24h old
+           -- -- Note: uses the TIMESTAMPDIFF() function to work the difference between both Current_Timestamp and timePOsted </a>
+        </li>
+        <li>
+           <a href="queries/q14.php"> Select all the posts created in the last 30 minutes </a>
+        </li>
+        <li>
+           <a href="queries/q15.php"> Select the average number of followers per user </a>
+        </li>
+        <li>
+           <a href="queries/q16.php"> Select all polls in which a specific user voted in </a>
+        </li>
+        <li>
+           <a href="queries/q17.php"> Select the user with the most followers </a>
+        </li>
+        <li>
+           <a href="queries/q18.php"> Select companies with multiple campaigns </a>
+        </li>
+        <li>
+           <a href="queries/q19.php"> Select all users who haven't saved anything </a>
+        </li>
+        <li>
+           <a href="queries/q20.php"> Select the most used filter </a>
+        </li>
+        <li>
+           <a href="queries/q21.php"> Find Percentage of female users </a>
+        </li>
+        <li>
+           <a href="queries/q22.php"> Select all comments made by a specific user </a>
+        </li>
+        <li>
+           <a href="queries/q23.php"> Select the last message for each user </a>
+        </li>
+        <li>
+           <a href="queries/q24.php"> Select all male users (and corresponding post) who like a post containing a particular hashtag</a>
+        </li>
+        <li>
+           <a href="queries/q25.php"> Select all users tagged in any post taken at a particular location and calculates how many times they were tagged at that one location </a>
+        </li>
+      </ol>
+
+  </div>
+
+
+
+  </body>
+</html>
